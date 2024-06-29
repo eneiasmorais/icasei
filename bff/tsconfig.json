@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+      "target": "ES2020",             /* Versão do ECMAScript para compilar */
+      "module": "commonjs",           /* Sistema de módulos a ser utilizado (Node.js utiliza commonjs) */
+      "outDir": "./dist",             /* Diretório de saída para os arquivos compilados */
+      "rootDir": "./src",             /* Diretório onde estão os arquivos TypeScript */
+      "strict": true,                 /* Habilita todas as opções strict do TypeScript */
+      "esModuleInterop": true,        /* Habilita interoperabilidade entre módulos ES6 e CommonJS */
+      "skipLibCheck": true,           /* Pula a verificação de declarações de arquivos de biblioteca */
+      "forceConsistentCasingInFileNames": true /* Garante que os nomes de arquivos sejam tratados de forma consistente */
+    },
+    "include": ["src/**/*"],          /* Arquivos TypeScript a serem incluídos na compilação */
+    "exclude": ["node_modules"]       /* Diretórios a serem excluídos da compilação */
+  }
+  
