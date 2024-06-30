@@ -1,15 +1,25 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>App com Microfrontends</title>
+    <title>MF Videos</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div id="mf_drawer"></div>
-    <div id="mf_videos"></div>
-
-    <!-- Scripts para carregar os microfrontends -->
-    <script src="../src/load.ts"></script>
+    <div>
+      <h1>MF_DRAWER</h1>
+      <div class="drawer">
+        <button id="videos-btn">Vídeos</button>
+        <button id="favorites-btn">Favoritos</button>
+      </div>
+    </div>
+    <h1>MF_VIDEOS</h1>
+    <form id="search-form">
+      <input type="text" id="search-input" placeholder="Search for videos..." />
+      <button type="submit">Search</button>
+    </form>
+    <div id="results-container"></div>
+    <script src="../src/main.ts"></script>
   </body>
 </html>
