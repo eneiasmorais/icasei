@@ -1,15 +1,12 @@
 {
-    "compilerOptions": {
-      "target": "es5",
-      "module": "commonjs",
-      "strict": true,
-      "esModuleInterop": true,
-      "skipLibCheck": true,
-      "forceConsistentCasingInFileNames": true,
-      "lib": ["dom", "es2015"],
-      "outDir": "./dist",
-      "rootDir": "./src"
-    },
-    "include": ["src/**/*.ts"]
-  }
-  
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "module": "commonjs",
+    "target": "es6",
+    "strict": true,
+    "esModuleInterop": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["../bff/**/*"] // Exclui todo o diretório do BFF
+}
