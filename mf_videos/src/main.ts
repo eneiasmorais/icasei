@@ -1,49 +1,98 @@
-// mf_videos/src/main.ts
-const searchForm = document.getElementById('search-form') as HTMLFormElement;
-const searchInput = document.getElementById('search-input') as HTMLInputElement;
-const resultsContainer = document.getElementById(
-  'results-container',
-) as HTMLDivElement;
+import { VideoService } from './services/videoServices';
 
-searchForm.addEventListener('submit', async (event) => {
-  event.preventDefault();
-  const searchQuery = searchInput.value.trim();
+document.addEventListener('DOMContentLoaded', () => {
+  const videoData: Video[] = [
+    { id: 'abc123', title: 'Vídeo 1', favorite: false },
+    { id: 'def456', title: 'Vídeo 2', favorite: true },
+  ];
+  const videoContainer = document.getElementById('video-container');
+  const urlParams = new URLSearchParams(window.location.search);
+  const showFavorites = urlParams.get('favorites') === 'true';
 
-  try {
-    // Realiza a requisição para buscar vídeos no YouTube
-    const response = await fetch(
-      `/searchVideos?searchQuery=${encodeURIComponent(searchQuery)}`,
-    );
-    const videos = await response.json();
+  if (!videoContainer) {
+    console.error('Element with id "video-container" not found.');
+    return;
+  }
 
-    // Limpa o container de resultados antes de adicionar os novos vídeos
-    resultsContainer.innerHTML = '';
+  interface Video {
+    id: string;
+    title: string;
+    favorite: boolean;
+  }
 
-    // Renderiza os vídeos encontrados
-    videos.items.forEach((video: any) => {
-      const videoElement = document.createElement('iframe');
-      videoElement.src = `https://www.youtube.com/embed/${video.id.videoId}`;
-      videoElement.title = video.snippet.title;
-      videoElement.width = '560';
-      videoElement.height = '315';
-      videoElement.allowFullscreen = true;
+  const renderVideos = (videos: Video[]) => {
+    videoContainer.innerHTML = ''; // Limpar container antes de renderizar
 
-      const videoTitle = document.createElement('h2');
-      videoTitle.textContent = video.snippet.title;
+    videos.forEach((video: Video) => {
+      const iframeElement = document.createElement('iframe');
+      iframeElement.src = `https://www.youtube.com/embed/${video.id}`;
+      iframeElement.width = '560';
+      iframeElement.height = '315';
+      iframeElement.allowFullscreen = true;
 
-      const videoDescription = document.createElement('p');
-      videoDescription.textContent = video.snippet.description;
+      const favoriteButton = document.createElement('button');
+      favoriteButton.textContent = video.favorite
+        ? 'Remover Favorito'
+        : 'Adicionar Favorito';
+      favoriteButton.addEventListener('click', () => {
+        video.favorite = !video.favorite;
+        favoriteButton.textContent = video.favorite
+          ? 'Remover Favorito'
+          : 'Adicionar Favorito';
+        updateFavoritesCounter();
+      });
 
-      const videoContainer = document.createElement('div');
-      videoContainer.classList.add('video-container');
-      videoContainer.appendChild(videoElement);
-      videoContainer.appendChild(videoTitle);
-      videoContainer.appendChild(videoDescription);
+      const videoTitle = document.createElement('h3');
+      videoTitle.textContent = video.title;
 
-      resultsContainer.appendChild(videoContainer);
+      const videoDiv = document.createElement('div');
+      videoDiv.appendChild(videoTitle);
+      videoDiv.appendChild(iframeElement);
+      videoDiv.appendChild(favoriteButton);
+
+      videoContainer.appendChild(videoDiv);
     });
-  } catch (error) {
-    console.error('Erro ao buscar vídeos do YouTube:', error);
-    alert('Erro ao buscar vídeos. Por favor, tente novamente mais tarde.');
+  };
+
+  const filterFavorites = () => {
+    const favoriteVideos = videoData.filter((video: Video) => video.favorite);
+    renderVideos(favoriteVideos);
+  };
+
+  const showAllVideos = () => {
+    renderVideos(videoData);
+  };
+
+  const updateFavoritesCounter = () => {
+    const favoriteCount = videoData.filter(
+      (video: Video) => video.favorite,
+    ).length;
+    console.log(`Total de vídeos favoritos: ${favoriteCount}`);
+  };
+
+  const loadVideos = async (query: string) => {
+    try {
+      const videos = await VideoService.searchVideos(query);
+      renderVideos(videos);
+    } catch (error) {
+      console.error('Erro ao carregar vídeos:', error);
+    }
+  };
+
+  // Event listeners para os botões Vídeos e Favoritos
+  const videosLink = document.getElementById('videos-link');
+  const favoritesLink = document.getElementById('favorites-link');
+
+  if (videosLink) {
+    videosLink.addEventListener('click', () => {
+      const query = 'YOUR_SEARCH_QUERY'; // Defina o que você quer buscar
+      loadVideos(query);
+    });
+  }
+
+  if (favoritesLink) {
+    favoritesLink.addEventListener('click', () => {
+      filterFavorites();
+    });
   }
 });

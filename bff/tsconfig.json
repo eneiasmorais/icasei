@@ -9,7 +9,7 @@
       "skipLibCheck": true,           /* Pula a verificação de declarações de arquivos de biblioteca */
       "forceConsistentCasingInFileNames": true /* Garante que os nomes de arquivos sejam tratados de forma consistente */
     },
-    "include": ["src/**/*", "../mf_drawer/src/controllers.ts"],          /* Arquivos TypeScript a serem incluídos na compilação */
+    "include": ["src/**/*", "../mf_drawer/src/controllers.ts", "../mf_drawer/src/services.ts"],          /* Arquivos TypeScript a serem incluídos na compilação */
     "exclude": ["node_modules"]       /* Diretórios a serem excluídos da compilação */
   }
   

@@ -1,6 +1,7 @@
-FROM node:14-alpine
+FROM node:16-alpine
 WORKDIR /app
-COPY . .
+COPY package.json package-lock.json ./
 RUN npm install
+COPY . .
 EXPOSE 4000
-CMD ["npm", "run", "dev"]
+CMD ["npx", "ts-node", "src/index.ts"]

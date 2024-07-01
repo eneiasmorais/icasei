@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MF Videos</title>
-    <link rel="stylesheet" href="styles.css" />
+    <!-- <link rel="stylesheet" href="styles.css" /> -->
   </head>
   <body>
     <div>
@@ -15,11 +15,41 @@
       </div>
     </div>
     <h1>MF_VIDEOS</h1>
-    <form id="search-form">
-      <input type="text" id="search-input" placeholder="Search for videos..." />
+    <form id="search-form" onsubmit="event.preventDefault(); searchVideos();">
+      <input type="text" id="searchQuery" placeholder="Search for videos..." />
       <button type="submit">Search</button>
     </form>
-    <div id="results-container"></div>
-    <script src="../../mf_drawer/src/mf_drawer.ts"></script>
+    <div id="results-container">
+      <div id="videoList"></div>
+    </div>
+    <script src="../dist/main.js"></script>
+    <!-- <script>
+      async function searchVideos() {
+        const query = document.getElementById('searchQuery').value;
+        const response = await fetch(`/searchVideos?q=${query}`);
+        const videos = await response.json();
+        renderVideos(videos);
+      }
+
+      async function renderVideos(videos) {
+        const videoList = document.getElementById('videoList');
+        videoList.innerHTML = ''; // Limpa a lista antes de renderizar os vídeos
+
+        videos.forEach((video) => {
+          const videoElement = document.createElement('div');
+          videoElement.innerHTML = `
+          <h3>${video.snippet.title}</h3>
+          <img src="${video.snippet.thumbnails.medium.url}" alt="${video.snippet.title}">
+          <p>${video.snippet.description}</p>
+        `;
+          videoList.appendChild(videoElement);
+        });
+      }
+
+      // Chamar a função de busca de vídeos ao carregar a página
+      window.onload = () => {
+        searchVideos();
+      }; -->
+    </script>
   </body>
 </html>

@@ -1,36 +1,53 @@
-// bff/src/controllers/mfDrawerController.ts
 import { Request, Response } from 'express';
-import { searchVideos } from './services';
+import {
+  searchVideos,
+  getMostPopularVideos,
+  getVideoById,
+} from '../src/services';
 
-// Controlador para lidar com requisições relacionadas ao microfrontend mf_drawer
-export const getDrawerInfo = async (req: Request, res: Response) => {
+export const searchVideosHandler = async (req: Request, res: Response) => {
+  const { q } = req.query;
+
+  if (!q) {
+    return res.status(400).json({ error: 'Parameter "q" is required' });
+  }
+
   try {
-    // Aqui você pode implementar a lógica necessária para mf_drawer
-    // Por exemplo, integrar com serviços back-end, recuperar dados, etc.
-    const drawerData = {
-      links: ['Vídeos', 'Favoritos'],
-      // Outras informações específicas do mf_drawer
-    };
-
-    res.json(drawerData);
+    const videos = await searchVideos(q as string);
+    res.json(videos);
   } catch (error) {
-    console.error('Erro ao obter informações do drawer:', error);
-    res.status(500).json({ error: 'Erro ao obter informações do drawer' });
+    console.error('Erro ao buscar vídeos:', error);
+    res.status(500).json({ error: 'Erro ao buscar vídeos' });
   }
 };
 
-// Exemplo de uso do serviço para buscar vídeos do YouTube
-export const searchVideosHandler = async (req: Request, res: Response) => {
-  const { searchQuery } = req.query;
+export const getMostPopularVideosHandler = async (
+  req: Request,
+  res: Response,
+) => {
+  const { regionCode } = req.query;
 
   try {
-    // Chama o serviço para buscar vídeos no YouTube com base no termo de busca
-    const videos = await searchVideos(String(searchQuery));
-
-    // Retorna os vídeos encontrados como resposta JSON
+    const videos = await getMostPopularVideos(regionCode as string);
     res.json(videos);
   } catch (error) {
-    console.error('Erro ao buscar vídeos do YouTube:', error);
-    res.status(500).json({ error: 'Erro ao buscar vídeos do YouTube' });
+    console.error('Erro ao buscar vídeos mais populares:', error);
+    res.status(500).json({ error: 'Erro ao buscar vídeos mais populares' });
+  }
+};
+
+export const getVideoByIdHandler = async (req: Request, res: Response) => {
+  const { videoId } = req.params;
+
+  if (!videoId) {
+    return res.status(400).json({ error: 'Parameter "videoId" is required' });
+  }
+
+  try {
+    const video = await getVideoById(videoId);
+    res.json(video);
+  } catch (error) {
+    console.error('Erro ao buscar vídeo pelo ID:', error);
+    res.status(500).json({ error: 'Erro ao buscar vídeo pelo ID' });
   }
 };
