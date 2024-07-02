@@ -23,19 +23,15 @@ app.get('/searchVideos', async (req, res) => {
   } catch (error: any) {
     res.status(500).send(error.message);
   }
-}); // Middleware para permitir requisições JSON
+});
 app.use(express.json());
 
-// Rota para buscar vídeos no YouTube por termo de busca
 app.get('/searchVideos', searchVideosHandler);
 
-// Rota para buscar vídeos mais populares no YouTube
 app.get('/api/popularVideos', getMostPopularVideosHandler);
 
-// Rota para buscar vídeo no YouTube por ID
 app.get('/api/videos/:videoId', getVideoByIdHandler);
 
-// Servir arquivos estáticos das aplicações microfrontend
 app.use(
   '/mf_drawer',
   express.static(path.join(__dirname, '../../mf_drawer/dist')),
@@ -46,7 +42,7 @@ app.use(
 );
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
 
 app.listen(port, () => {

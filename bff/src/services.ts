@@ -1,18 +1,14 @@
 import axios from 'axios';
 
-// Chave da API do YouTube
 const YOUTUBE_API_KEY = 'AIzaSyCT6ebcDTZsRQfecDUd2gCv884_H6w4_hc';
+const BASE_URL = 'https://www.googleapis.com/youtube/v3';
 
-// URL base da API do YouTube
-export const BASE_URL = 'https://www.googleapis.com/youtube/v3';
-
-// Função para buscar vídeos no YouTube com base nos termos de busca
 export const searchVideos = async (searchQuery: string) => {
   try {
     const response = await axios.get(BASE_URL, {
       params: {
         part: 'snippet',
-        maxResults: 10, // Número máximo de resultados
+        maxResults: 10,
         q: searchQuery,
         key: YOUTUBE_API_KEY,
         type: 'video',
@@ -60,7 +56,7 @@ export const getVideoById = async (videoId: string) => {
       },
     );
 
-    return response.data.items[0]; // Retorna o primeiro item encontrado (deveria haver apenas um)
+    return response.data.items[0];
   } catch (error) {
     console.error('Erro ao buscar vídeo do YouTube pelo ID:', error);
     throw error;

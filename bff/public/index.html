@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Drawer</title>
+    <title>App Videos YouTube</title>
   </head>
   <body>
-    <div class="buttons">
-      <h1>MF_DRAWER</h1>
-      <!-- Botões para navegar entre Vídeos e Favoritos -->
-      <button id="videos-link">Vídeos</button>
-      <button id="favorites-link">Favoritos</button>
+    <div class="main-container">
+      <aside class="drawer-container" id="mf-drawer">
+        <iframe src="../../mf_drawer/index.html" frameborder="0"></iframe>
+      </aside>
+      <main class="videos-container" id="mf-videos">
+        <iframe src="../../mf_videos/index.html" frameborder="0"></iframe>
+      </main>
     </div>
 
-    <!-- Container onde os vídeos serão renderizados -->
-    <div id="video-container">
-      <h1>MF_VIDEOS</h1>
-      <!-- Os vídeos serão inseridos dinamicamente aqui -->
-    </div>
-    <script src="../dist/main.js"></script>
-    <script src="./index2.ts"></script>
+    <!-- <script type="module" src="../src/functions.ts"></script>
+    <script type="module">
+      import { loadMicrofrontend } from '../src/functions.ts';
+      loadMicrofrontend('drawer-container', '../../mf_drawer/dist/main.js');
+    </script> -->
   </body>
 </html>
