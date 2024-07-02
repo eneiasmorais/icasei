@@ -3,7 +3,6 @@ import {
   getMostPopularVideosHandler,
   getVideoByIdHandler,
 } from './controllers';
-
 import express from 'express';
 import path from 'path';
 import axios from 'axios';
@@ -12,7 +11,7 @@ const app = express();
 const port = 4000;
 const apiKey = 'AIzaSyCT6ebcDTZsRQfecDUd2gCv884_H6w4_hc';
 
-app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/searchVideos', async (req, res) => {
   const { q } = req.query;

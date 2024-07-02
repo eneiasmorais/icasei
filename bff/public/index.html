@@ -3,31 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>iCasei Video App</title>
-    <link rel="stylesheet" href="styles.css" />
+    <title>Drawer</title>
   </head>
   <body>
-    <div class="container">
-      <div class="drawer">
-        <h1>MF_DRAWER</h1>
-        <button id="videos-link">Vídeos</button>
-        <button id="favorites-link">Favoritos</button>
-      </div>
-      <div class="videos">
-        <h1>MF_VIDEOS</h1>
-        <form id="search-form">
-          <input
-            type="text"
-            id="searchQuery"
-            placeholder="Search for videos..."
-          />
-          <button type="submit">Search</button>
-        </form>
-        <div id="results-container">
-          <div id="videoList"></div>
-        </div>
-      </div>
+    <div class="buttons">
+      <h1>MF_DRAWER</h1>
+      <!-- Botões para navegar entre Vídeos e Favoritos -->
+      <button id="videos-link">Vídeos</button>
+      <button id="favorites-link">Favoritos</button>
     </div>
-    <script src="main.js"></script>
+
+    <!-- Container onde os vídeos serão renderizados -->
+    <div id="video-container">
+      <h1>MF_VIDEOS</h1>
+      <!-- Os vídeos serão inseridos dinamicamente aqui -->
+    </div>
+    <script src="../dist/main.js"></script>
+    <script src="./index2.ts"></script>
   </body>
 </html>
