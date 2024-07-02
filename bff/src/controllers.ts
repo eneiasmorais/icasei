@@ -1,9 +1,5 @@
 import { Request, Response } from 'express';
-import {
-  searchVideos,
-  getMostPopularVideos,
-  getVideoById,
-} from '../src/services';
+import { searchVideos, getMostPopularVideos, getVideoById } from './services';
 
 export const searchVideosHandler = async (req: Request, res: Response) => {
   const { q } = req.query;
