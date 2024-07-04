@@ -3,6 +3,7 @@ import axios from 'axios';
 const YOUTUBE_API_KEY = 'AIzaSyCT6ebcDTZsRQfecDUd2gCv884_H6w4_hc';
 const BASE_URL = 'https://www.googleapis.com/youtube/v3';
 
+//pesquisa
 export const searchVideos = async (searchQuery: string) => {
   try {
     const response = await axios.get(BASE_URL, {
@@ -21,28 +22,24 @@ export const searchVideos = async (searchQuery: string) => {
     throw error;
   }
 };
-
-export const getMostPopularVideos = async (regionCode: string = 'US') => {
+//traz videos
+export const getMostPopularVideos = async () => {
   try {
-    const response = await axios.get(
-      'https://www.googleapis.com/youtube/v3/videos',
-      {
-        params: {
-          part: 'snippet',
-          chart: 'mostPopular',
-          regionCode,
-          key: YOUTUBE_API_KEY,
-        },
+    const response = await axios.get(`${baseUrl}/videos`, {
+      params: {
+        part: 'snippet,contentDetails,statistics',
+        chart: 'mostPopular',
+        maxResults: 10,
+        regionCode: 'US',
+        key: apiKey,
       },
-    );
-
-    return response.data.items;
+    });
+    return response.data;
   } catch (error) {
-    console.error('Erro ao buscar vídeos mais populares do YouTube:', error);
-    throw error;
+    throw new Error('Error fetching popular videos');
   }
 };
-
+//by id
 export const getVideoById = async (videoId: string) => {
   try {
     const response = await axios.get(

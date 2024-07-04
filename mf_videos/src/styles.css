@@ -1,0 +1,14 @@
+#app {
+    display: flex;
+}
+
+#drawer {
+    width: 300px;
+    border-right: 1px solid #ccc;
+    padding: 10px;
+}
+
+#videos {
+    flex: 1;
+    padding: 10px;
+}

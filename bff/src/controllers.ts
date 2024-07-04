@@ -1,5 +1,8 @@
-import { Request, Response, query } from 'express';
+import { Request, Response } from 'express';
 import { searchVideos, getMostPopularVideos, getVideoById } from './services';
+import axios from 'axios';
+
+const apiKey = 'AIzaSyCT6ebcDTZsRQfecDUd2gCv884_H6w4_hc';
 
 export const searchVideosHandler = async (req: Request, res: Response) => {
   const { query } = req.query;
@@ -21,14 +24,12 @@ export const getMostPopularVideosHandler = async (
   req: Request,
   res: Response,
 ) => {
-  const { regionCode } = req.query;
-
   try {
-    const videos = await getMostPopularVideos(regionCode as string);
+    const videos = await getMostPopularVideos();
     res.json(videos);
   } catch (error) {
-    console.error('Erro ao buscar vídeos mais populares:', error);
-    res.status(500).json({ error: 'Erro ao buscar vídeos mais populares' });
+    console.error('Error fetching popular videos:', error.message);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 };
 

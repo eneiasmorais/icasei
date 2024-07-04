@@ -1,10 +1,7 @@
 import express = require('express');
 
 const app = express();
-const port = process.env.PORT || 3000; // Porta 3000 para mf_drawer
-
-// Configuração do servidor e rotas para mf_drawer
-// ...
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
   console.log(
